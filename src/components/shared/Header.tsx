@@ -22,7 +22,7 @@ const Header = () => {
     }
   };
   return (
-    <div className="flex items-center justify-between py-4 px-8 bg-lightPrimary text-white  z-0 ">
+    <div className="fixed w-full flex items-center justify-between py-4 px-8 bg-lightPrimary text-white  z-0 ">
       <p className="text-2xl font-medium">Compass</p>
       <Popover>
         <PopoverTrigger>

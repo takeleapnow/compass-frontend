@@ -66,7 +66,14 @@
   body {
     @apply bg-background text-foreground;
   }
+  
   .profileTabOption{
     @apply flex items-center gap-4 px-4 py-2 text-lg hover:bg-lightAccent hover:dark:bg-darkAccent cursor-pointer
+  }
+  .page-title{
+    @apply text-3xl flex items-center justify-between font-bold text-lightPrimary mb-8 dark:text-purple-400 ;
+  }
+  .page-subtitle{
+    @apply text-xl flex items-center justify-between font-bold text-lightPrimary mb-4 dark:text-darkContrast ;
   }
 }

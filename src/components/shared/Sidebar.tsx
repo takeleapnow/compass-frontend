@@ -16,11 +16,11 @@ interface SidebarProps {
 const Sidebar = ({ data, isSideBarOpen, toggleSidebar }: SidebarProps) => {
   const location = useLocation();
   return (
-    <div className=" bg-lightPrimary h-screen z-100">
+    <div className="pt-16  h-screen z-100">
       {isSideBarOpen ? (
         <aside
           id="icon-sidebar"
-          className="fixed w-1/3 lg:w-1/4 2xl:w-1/6  h-screen pb-16 transition-transform -translate-x-full sm:translate-x-0"
+          className="fixed bg-lightPrimary w-1/3 lg:w-1/4 2xl:w-1/6  h-screen pb-16 transition-transform -translate-x-full sm:translate-x-0"
           aria-label="Sidebar"
         >
           <div className="h-full px-3 py-4 overflow-y-auto flex flex-col justify-between pb-12 shadow-md dark:bg-gray-900">
@@ -72,7 +72,7 @@ const Sidebar = ({ data, isSideBarOpen, toggleSidebar }: SidebarProps) => {
       ) : (
         <aside
           id="icon-sidebar"
-          className="fixed pb-16 h-screen transition-transform -translate-x-full sm:translate-x-0"
+          className="fixed  bg-lightPrimary pb-16 h-screen transition-transform -translate-x-full sm:translate-x-0"
           aria-label="Sidebar"
         >
           <div className="h-full px-2 items-center gap-4 py-4 overflow-y-auto  flex flex-col justify-between pb-8 shadow-md">

@@ -19,7 +19,7 @@ module.exports = {
     extend: {
       colors: {
         // https://colorhunt.co/palette/2e073f7a1cacad49e1ebd3f8
-        lightPrimary:" #7A1CAC",
+        lightPrimary:" #673AB7FA",
         darkPrimary: "#2E073F",
         lightSecondary: "#AD49E1",
         darkSecondary: "#522258",

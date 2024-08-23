@@ -25,6 +25,7 @@ module.exports = {
         darkSecondary: "#522258",
         lightAccent: "#EBD3F8",
         darkAccent:"#674188",
+        darkContrast: "#c084fc",
 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

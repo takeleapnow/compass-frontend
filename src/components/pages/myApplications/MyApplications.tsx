@@ -1,4 +1,6 @@
 import Dashboard from "@/components/shared/wrappers/Dashboard";
+import Stats from "./subComponents/Stats";
+import DashboardNavbar from "./subComponents/DashboardNavbar";
 
 const MyApplications = () => {
   return (
@@ -6,7 +8,9 @@ const MyApplications = () => {
       <div>
         <p className="page-title">Dashboard</p>
         {/* applications will be shown here */}
-        <div className="bg-lightAccent min-h-screen">
+        <DashboardNavbar/>
+        <Stats/>
+        <div className="bg-lightAccent rounded-md min-h-screen">
 
         </div>
       </div>

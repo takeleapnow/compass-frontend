@@ -2,7 +2,7 @@ import Dashboard from "@/components/shared/wrappers/Dashboard";
 import Stats from "./subComponents/Stats";
 import DashboardNavbar from "./subComponents/DashboardNavbar";
 import { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import no_shortlist from "@/assets/images/no_shortlists.webp";
 
 interface ApplicationShortlists {

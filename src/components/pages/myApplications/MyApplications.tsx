@@ -1,13 +1,17 @@
-import Dashboard from "@/components/shared/wrappers/Dashboard"
+import Dashboard from "@/components/shared/wrappers/Dashboard";
 
 const MyApplications = () => {
   return (
     <Dashboard>
-    <div>
-      My MyApplications
-    </div>
-    </Dashboard>
-  )
-}
+      <div>
+        <p className="page-title">Dashboard</p>
+        {/* applications will be shown here */}
+        <div className="bg-lightAccent min-h-screen">
 
-export default MyApplications
+        </div>
+      </div>
+    </Dashboard>
+  );
+};
+
+export default MyApplications;

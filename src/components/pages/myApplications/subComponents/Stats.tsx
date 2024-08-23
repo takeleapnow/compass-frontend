@@ -22,7 +22,7 @@ const Stats = () => {
         console.log(data);
       } catch (error) {
         console.log(error);
-        toast.error("Failed to fetch stats");
+        // toast.error("Failed to fetch stats");
       } finally {
         setLoading(false);
       }

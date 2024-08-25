@@ -105,7 +105,7 @@ const AddTask = () => {
       newTasks[index] = {
         ...newTasks[index],
         [keys[0]]: {
-          ...newTasks[index][keys[0]],
+          ...(newTasks[index] as any)[keys[0]],
           [keys[1]]: value,
         },
       };

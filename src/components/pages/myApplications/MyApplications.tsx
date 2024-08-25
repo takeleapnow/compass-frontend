@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { IoAdd } from "react-icons/io5";
 import { GoArrowUpRight } from "react-icons/go";
+import AddTask from "./subComponents/AddTask";
 interface ApplicationShortlists {
   uniName: string;
   program: string;
@@ -111,11 +112,7 @@ const MyApplications = () => {
                           <IoAdd /> Application Material
                         </Button>
                       </Link>
-                      <Link to={""}>
-                        <Button variant={"sleekTransparent"} size={"sleek"}>
-                          <IoAdd /> Task
-                        </Button>
-                      </Link>
+                      <AddTask/>
                     </div>
                   </div>
 

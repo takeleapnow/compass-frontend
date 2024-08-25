@@ -16,8 +16,7 @@ interface ApplicationShortlists {
   currency: string;
   status: string;
   id: number;
-}
-[];
+};
 
 const MyApplications = () => {
   const [shortlists, setShortlists] = useState<ApplicationShortlists[]>([]);

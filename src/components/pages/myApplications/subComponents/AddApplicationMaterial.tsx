@@ -14,6 +14,8 @@ import { LuFiles } from "react-icons/lu";
 import Essay from "./Essay";
 import Recommender from "./Recommender";
 import Portfolio from "./Portfolio";
+import Resume from "./Resume";
+import Others from "./Others";
 
 const AddApplicationMaterial = () => {
   return (
@@ -45,8 +47,14 @@ const AddApplicationMaterial = () => {
             <TabsContent value="Recommender">
               <Recommender />
             </TabsContent>
+            <TabsContent value="Resume">
+              <Resume />
+            </TabsContent>
             <TabsContent value="Portfolio">
               <Portfolio />
+            </TabsContent>
+            <TabsContent value="Others">
+              <Others />
             </TabsContent>
           </Tabs>
         </DialogHeader>

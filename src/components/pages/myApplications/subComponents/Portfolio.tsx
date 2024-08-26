@@ -63,7 +63,7 @@ const Portfolio = () => {
 
   return (
     <div className="pt-2">
-      <ScrollArea className="max-h-[500px]">
+      <ScrollArea className="">
         {portfolios.map((portfolio, index) => (
           <div key={index} className="flex flex-col gap-4 pt-2">
             <div className="font-medium flex justify-between items-center mr-4">

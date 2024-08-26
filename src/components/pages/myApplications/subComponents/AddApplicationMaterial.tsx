@@ -12,6 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { IoAdd } from "react-icons/io5";
 import { LuFiles } from "react-icons/lu";
 import Essay from "./Essay";
+import Recommender from "./Recommender";
 
 const AddApplicationMaterial = () => {
   return (
@@ -40,8 +41,8 @@ const AddApplicationMaterial = () => {
             <TabsContent value="Essay" className="">
               <Essay/>
             </TabsContent>
-            <TabsContent value="password">
-              Change your password here.
+            <TabsContent value="Recommender">
+             <Recommender/>
             </TabsContent>
           </Tabs>
         </DialogHeader>

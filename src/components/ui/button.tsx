@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-lightPrimary dark:bg-darkSecondary dark:text-lightAccent text-primary-foreground hover:bg-lightPrimary/90 dark:hover:bg-darkSecondary/90",
+          "bg-lightPrimary dark:bg-darkSecondary dark:text-lightAccent text-primary-foreground hover:bg-lightPrimary/90 flex items-center gap-1 dark:hover:bg-darkSecondary/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
@@ -23,6 +23,8 @@ const buttonVariants = cva(
           "bg-white text-lightPrimary rounded-none border-none hover:bg-lightAccent w-full",
         sleekTransparent:
           "bg-transparent text-lightPrimary  border border-lightAccent hover:bg-lightAccent font-normal gap-1 ",
+          input:"flex h-10 w-full rounded-md border hover:dark:border-secondary hover:border-secondary   dark:border-gray-500 bg-gray-200  border-gray-300 dark:bg-gray-800 px-4 py-2 text-sm file:border-0  focus:file:bg-transparent file:text-sm file:font-medium  placeholder:text-muted-foreground  disabled:cursor-not-allowed disabled:opacity-50 outline-none", 
+          formGradient:"bg-gradient-to-r from-lightPrimary to-darkAccent hover:to-lightPrimary text-white rounded-md px-4 py-2",
       },
       size: {
         default: "h-10 px-4 py-2",

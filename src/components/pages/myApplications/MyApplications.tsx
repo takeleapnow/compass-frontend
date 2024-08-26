@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { IoAdd } from "react-icons/io5";
 import { GoArrowUpRight } from "react-icons/go";
+import AddTask from "./subComponents/AddTask";
+import AddApplicationMaterial from "./subComponents/AddApplicationMaterial";
 interface ApplicationShortlists {
   uniName: string;
   program: string;
@@ -16,8 +18,7 @@ interface ApplicationShortlists {
   currency: string;
   status: string;
   id: number;
-}
-[];
+};
 
 const MyApplications = () => {
   const [shortlists, setShortlists] = useState<ApplicationShortlists[]>([]);
@@ -107,16 +108,8 @@ const MyApplications = () => {
                           <IoAdd /> Pre-requisites
                         </Button>
                       </Link>
-                      <Link to={""}>
-                        <Button variant={"sleekTransparent"} size={"sleek"}>
-                          <IoAdd /> Application Material
-                        </Button>
-                      </Link>
-                      <Link to={""}>
-                        <Button variant={"sleekTransparent"} size={"sleek"}>
-                          <IoAdd /> Task
-                        </Button>
-                      </Link>
+                     <AddApplicationMaterial/>
+                      <AddTask/>
                     </div>
                   </div>
 

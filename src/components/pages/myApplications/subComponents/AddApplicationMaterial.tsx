@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-//   DialogDescription,
+  //   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -13,6 +13,7 @@ import { IoAdd } from "react-icons/io5";
 import { LuFiles } from "react-icons/lu";
 import Essay from "./Essay";
 import Recommender from "./Recommender";
+import Portfolio from "./Portfolio";
 
 const AddApplicationMaterial = () => {
   return (
@@ -39,10 +40,13 @@ const AddApplicationMaterial = () => {
               <TabsTrigger value="Others">Others</TabsTrigger>
             </TabsList>
             <TabsContent value="Essay" className="">
-              <Essay/>
+              <Essay />
             </TabsContent>
             <TabsContent value="Recommender">
-             <Recommender/>
+              <Recommender />
+            </TabsContent>
+            <TabsContent value="Portfolio">
+              <Portfolio />
             </TabsContent>
           </Tabs>
         </DialogHeader>

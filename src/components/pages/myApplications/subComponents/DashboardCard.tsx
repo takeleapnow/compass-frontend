@@ -7,12 +7,12 @@ interface DashboardCardProps {
 const DashboardCard = ({ data }: DashboardCardProps) => {
   return (
    
-      <div className="flex w-1/5 2xl:w-1/6 border border-purple-100 justify-between items-start bg-white rounded-md p-4">
+      <div className="flex gap-12 2xl:w-1/6 border border-purple-100 justify-between items-start bg-white rounded-md p-4">
         <div>
           <p className="text-lg font-semibold">{data.title}</p>
           <p className="text-gray-500 font-medium text-lg">{data.value}</p>
         </div>
-        <div>
+        <div className="mt-2 text-darkAccent ">
           <FaUser/>
         </div>
       </div>

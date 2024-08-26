@@ -1,9 +1,12 @@
+import AuthLayout from "@/components/shared/wrappers/AuthLayout"
 
 const Signin = () => {
   return (
-    <div>
-      SIGIN
+   <AuthLayout>
+     <div className="flex flex-col items-center">
+        <p>Sign In</p>
     </div>
+   </AuthLayout>
   )
 }
 

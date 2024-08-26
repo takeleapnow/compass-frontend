@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { IoAdd } from "react-icons/io5";
 import { GoArrowUpRight } from "react-icons/go";
 import AddTask from "./subComponents/AddTask";
+import { PiArrowUpRightBold } from "react-icons/pi";
 import AddApplicationMaterial from "./subComponents/AddApplicationMaterial";
 interface ApplicationShortlists {
   uniName: string;
@@ -18,7 +19,7 @@ interface ApplicationShortlists {
   currency: string;
   status: string;
   id: number;
-};
+}
 
 const MyApplications = () => {
   const [shortlists, setShortlists] = useState<ApplicationShortlists[]>([]);
@@ -82,7 +83,7 @@ const MyApplications = () => {
             <div className="flex flex-wrap gap-4">
               {shortlists.map((shortlist, index) => (
                 <div
-                  className="w-2/5 border rounded-md p-2 shadow-sm "
+                  className="w-2/5 2xl:w-1/4  border rounded-md p-2 shadow-sm "
                   key={index}
                 >
                   <div className="flex flex-col gap-2">
@@ -108,8 +109,13 @@ const MyApplications = () => {
                           <IoAdd /> Pre-requisites
                         </Button>
                       </Link>
-                     <AddApplicationMaterial/>
-                      <AddTask/>
+                      <AddApplicationMaterial />
+                      <AddTask />
+                      <Link to={""}>
+                        <Button variant={"sleekTransparent"} size={"sleek"}>
+                          <PiArrowUpRightBold /> View
+                        </Button>
+                      </Link>
                     </div>
                   </div>
 

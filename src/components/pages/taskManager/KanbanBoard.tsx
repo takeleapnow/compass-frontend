@@ -270,6 +270,19 @@ export function KanbanBoard() {
             },
         ]);
     };
+    const handleAddTask = (
+        id: UniqueIdentifier,
+        columnId: ColumnId,
+        content: string,
+        priority: 'high' | 'medium' | 'low',
+        transcript: 'SOP' | 'LOR' | 'Resume' | 'Other',
+        deadline: string
+    ) => {
+        setTasks((prevTasks) => [
+            ...prevTasks,
+            { id, columnId, content, priority, transcript, deadline }
+        ]);
+    };
     return (
         <div className="flex flex-col justify-center items-center gap-y-4">
             <div className="flex w-full justify-end items-center">

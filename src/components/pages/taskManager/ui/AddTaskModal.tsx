@@ -24,12 +24,13 @@ interface Props {
         deadline: string
     ) => void,
     open: boolean,
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    columnId: string,
 }
 
-export default function AddTaskModal({ handleAddTask, open, setOpen }: Props) {
+export default function AddTaskModal({ handleAddTask, open, setOpen, columnId }: Props) {
     const [id, setId] = useState<UniqueIdentifier>('');
-    const [columnId, setColumnId] = useState<ColumnId>('todo'); // Default or adjust as needed
+    // const [columnId, setColumnId] = useState<ColumnId>('todo'); // Default or adjust as needed
     const [content, setContent] = useState<string>('');
     const [priority, setPriority] = useState<'high' | 'medium' | 'low'>('medium');
     const [transcript, setTranscript] = useState<'SOP' | 'LOR' | 'Resume' | 'Other'>('Other');

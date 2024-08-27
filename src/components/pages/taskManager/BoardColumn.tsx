@@ -8,9 +8,10 @@ import { Card, CardContent, CardHeader } from "./ui/card";
 import { Button } from "./ui/button";
 import { GripVertical } from "lucide-react";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
+import { IoCreateOutline } from "react-icons/io5";
 
 export interface Column {
-    id: UniqueIdentifier;
+    id: string;
     title: string;
 }
 
@@ -53,6 +54,7 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
     const style = {
         transition,
         transform: CSS.Translate.toString(transform),
+        background: "rgba(103, 58, 183, 0.08)",
     };
 
     const variants = cva(
@@ -65,7 +67,7 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
                     overlay: "ring-2 ring-primary",
                 },
             },
-        }
+        },
     );
 
     return (
@@ -75,8 +77,9 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
             className={variants({
                 dragging: isOverlay ? "overlay" : isDragging ? "over" : undefined,
             })}
+
         >
-            <CardHeader className="p-4 font-semibold border-b-2 text-left flex flex-row space-between items-center">
+            <CardHeader className="p-4 font-semibold border-b-2 text-left flex flex-row justify-between items-center">
                 <Button
                     variant={"ghost"}
                     {...attributes}
@@ -86,7 +89,14 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
                     <span className="sr-only">{`Move column: ${column.title}`}</span>
                     <GripVertical />
                 </Button>
-                <span className="ml-auto"> {column.title}</span>
+                <span className="inline-flex items-center justify-center">{column.title}</span>
+                <Button
+                    variant={"ghost"}
+                    className="text-primary/50 h-auto cursor-pointer relative"
+                    onClick={() => console.log("clicked")}
+                >
+                    <IoCreateOutline size={20} />
+                </Button>
             </CardHeader>
             <ScrollArea>
                 <CardContent className="flex flex-grow flex-col gap-2 p-2">

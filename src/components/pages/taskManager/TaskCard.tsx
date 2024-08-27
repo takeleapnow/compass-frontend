@@ -5,13 +5,19 @@ import { Card, CardContent, CardHeader } from "@/components/pages/taskManager/ui
 import { Button } from "@/components/pages/taskManager/ui/button";
 import { cva } from "class-variance-authority";
 import { GripVertical } from "lucide-react";
-import { Badge } from "./ui/badge";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"; // Import DropdownMenu components
+import { useState } from "react"; // Import useState for managing state
 import { ColumnId } from "./KanbanBoard";
+import { Badge } from "@/components/ui/badge"
 
+// Define task interface with priority
 export interface Task {
     id: UniqueIdentifier;
     columnId: ColumnId;
     content: string;
+    priority: 'high' | 'medium' | 'low'; // New field added
+    transcript: 'SOP' | 'LOR' | 'Resume' | 'Other'; // New field added
+    deadline: string;
 }
 
 interface TaskCardProps {
@@ -59,6 +65,22 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
         },
     });
 
+    // State for managing task priority
+    const [priority, setPriority] = useState(task.priority);
+
+    // Function to handle priority change
+    const handlePriorityChange = (newPriority: 'high' | 'medium' | 'low') => {
+        setPriority(newPriority);
+        task.priority = newPriority; // Update the task priority
+    };
+
+    // Determine badge color based on priority
+    const badgeColor = {
+        high: 'bg-red-800 text-white',
+        medium: 'bg-green-500 text-white',
+        low: 'bg-yellow-500 text-black',
+    }[priority];
+
     return (
         <Card
             ref={setNodeRef}
@@ -67,7 +89,7 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
                 dragging: isOverlay ? "overlay" : isDragging ? "over" : undefined,
             })}
         >
-            <CardHeader className="px-3 py-3 space-between flex flex-row border-b-2 border-secondary relative">
+            <CardHeader className="px-3 pt-3 flex flex-row justify-between items-center relative">
                 <Button
                     variant={"ghost"}
                     {...attributes}
@@ -77,13 +99,38 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
                     <span className="sr-only">Move task</span>
                     <GripVertical />
                 </Button>
-                <Badge variant={"outline"} className="ml-auto font-semibold">
-                    Task
-                </Badge>
+                <CardContent className="text-left whitespace-pre-wrap text-ellipsis">
+                    {task.content}
+                </CardContent>
+                {/* Dropdown Menu for Priority Selection */}
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button
+                            className={`ml-auto font-semibold ${badgeColor} px-4 py-2 rounded-full text-xs w-16 h-6`}
+                        >
+                            {priority.charAt(0).toUpperCase() + priority.slice(1)} {/* Capitalize first letter */}
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <DropdownMenuItem onClick={() => handlePriorityChange('high')}>
+                            High
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handlePriorityChange('medium')}>
+                            Medium
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => handlePriorityChange('low')}>
+                            Low
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </CardHeader>
-            <CardContent className="px-3 pt-3 pb-6 text-left whitespace-pre-wrap">
+            <div className="flex justify-between px-3 py-3">
+                <Badge variant="secondary">{task.transcript}</Badge>
+                <Badge variant="outline">Deadline: {task.deadline}</Badge>
+            </div>
+            {/* <CardContent className="px-3 pt-3 pb-6 text-left whitespace-pre-wrap">
                 {task.content}
-            </CardContent>
+            </CardContent> */}
         </Card>
     );
 }

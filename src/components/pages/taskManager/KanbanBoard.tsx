@@ -1,6 +1,5 @@
 import { useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-
 import { BoardColumn, BoardContainer } from "./BoardColumn";
 import {
     DndContext,
@@ -21,18 +20,19 @@ import { type Task, TaskCard } from "./TaskCard";
 import type { Column } from "./BoardColumn";
 import { hasDraggableData } from "./utils";
 import { coordinateGetter } from "./multipleContainersKeyboardPreset";
+import AddSectionModal from "./ui/AddSectionModal";
 
-const defaultCols = [
+export const defaultCols = [
     {
-        id: "todo" as const,
+        id: "todo",
         title: "Todo",
     },
     {
-        id: "in-progress" as const,
+        id: "in-progress",
         title: "In progress",
     },
     {
-        id: "done" as const,
+        id: "done",
         title: "Done",
     },
 ] satisfies Column[];
@@ -44,66 +44,105 @@ const initialTasks: Task[] = [
         id: "task1",
         columnId: "done",
         content: "Project initiation and planning",
+        priority: "high",
+        transcript: "SOP",
+        deadline: "25/08/2024",
     },
     {
         id: "task2",
         columnId: "done",
         content: "Gather requirements from stakeholders",
+        priority: "low",
+        transcript: "LOR",
+        deadline: "25/08/2024",
     },
     {
         id: "task3",
         columnId: "done",
         content: "Create wireframes and mockups",
+        priority: "medium",
+        transcript: "Resume",
+        deadline: "25/08/2024",
     },
     {
         id: "task4",
         columnId: "in-progress",
         content: "Develop homepage layout",
+        priority: "high",
+        transcript: "LOR",
+        deadline: "25/08/2024",
     },
     {
         id: "task5",
         columnId: "in-progress",
         content: "Design color scheme and typography",
+        priority: "high",
+        transcript: "Resume",
+        deadline: "25/08/2024",
     },
     {
         id: "task6",
         columnId: "todo",
         content: "Implement user authentication",
+        priority: "high",
+        transcript: "SOP",
+        deadline: "25/08/2024",
     },
     {
         id: "task7",
         columnId: "todo",
         content: "Build contact us page",
+        priority: "high",
+        transcript: "Other",
+        deadline: "25/08/2024",
     },
     {
         id: "task8",
         columnId: "todo",
         content: "Create product catalog",
+        priority: "high",
+        transcript: "Other",
+        deadline: "25/08/2024",
     },
     {
         id: "task9",
         columnId: "todo",
         content: "Develop about us page",
+        priority: "high",
+        transcript: "SOP",
+        deadline: "25/08/2024",
     },
     {
         id: "task10",
         columnId: "todo",
         content: "Optimize website for mobile devices",
+        priority: "high",
+        transcript: "SOP",
+        deadline: "25/08/2024",
     },
     {
         id: "task11",
-        columnId: "todo",
+        columnId: "extra",
         content: "Integrate payment gateway",
+        priority: "high",
+        transcript: "SOP",
+        deadline: "25/08/2024",
     },
     {
         id: "task12",
-        columnId: "todo",
+        columnId: "extra",
         content: "Perform testing and bug fixing",
+        priority: "high",
+        transcript: "SOP",
+        deadline: "25/08/2024",
     },
     {
         id: "task13",
-        columnId: "todo",
+        columnId: "extra",
         content: "Launch website and deploy to server",
+        priority: "high",
+        transcript: "SOP",
+        deadline: "25/08/2024",
     },
 ];
 export function KanbanBoard() {
@@ -116,6 +155,8 @@ export function KanbanBoard() {
     const [activeColumn, setActiveColumn] = useState<Column | null>(null);
 
     const [activeTask, setActiveTask] = useState<Task | null>(null);
+
+    const [open, setOpen] = useState(false);
 
     const sensors = useSensors(
         useSensor(MouseSensor),
@@ -174,12 +215,11 @@ export function KanbanBoard() {
                     over.data.current.task.columnId
                 );
                 if (over.data.current.task.columnId !== pickedUpTaskColumn.current) {
-                    return `Task ${active.data.current.task.content
-                        } was moved over column ${column?.title} in position ${taskPosition + 1
-                        } of ${tasksInColumn.length}`;
+                    return `Task ${active.data.current.task.content} was moved over column ${column?.title
+                        } in position ${taskPosition + 1} of ${tasksInColumn.length}`;
                 }
-                return `Task was moved over position ${taskPosition + 1} of ${tasksInColumn.length
-                    } in column ${column?.title}`;
+                return `Task was moved over position ${taskPosition + 1
+                    } of ${tasksInColumn.length} in column ${column?.title}`;
             }
         },
         onDragEnd({ active, over }) {
@@ -193,9 +233,8 @@ export function KanbanBoard() {
             ) {
                 const overColumnPosition = columnsId.findIndex((id) => id === over.id);
 
-                return `Column ${active.data.current.column.title
-                    } was dropped into position ${overColumnPosition + 1} of ${columnsId.length
-                    }`;
+                return `Column ${active.data.current.column.title} was dropped into position ${overColumnPosition + 1
+                    } of ${columnsId.length}`;
             } else if (
                 active.data.current?.type === "Task" &&
                 over.data.current?.type === "Task"
@@ -205,11 +244,11 @@ export function KanbanBoard() {
                     over.data.current.task.columnId
                 );
                 if (over.data.current.task.columnId !== pickedUpTaskColumn.current) {
-                    return `Task was dropped into column ${column?.title} in position ${taskPosition + 1
-                        } of ${tasksInColumn.length}`;
+                    return `Task was dropped into column ${column?.title
+                        } in position ${taskPosition + 1} of ${tasksInColumn.length}`;
                 }
-                return `Task was dropped into position ${taskPosition + 1} of ${tasksInColumn.length
-                    } in column ${column?.title}`;
+                return `Task was dropped into position ${taskPosition + 1
+                    } of ${tasksInColumn.length} in column ${column?.title}`;
             }
             pickedUpTaskColumn.current = null;
         },
@@ -220,45 +259,79 @@ export function KanbanBoard() {
         },
     };
 
+    const handleAddSection = (id: string, title: string) => {
+        setColumns((prevColumns) => [
+            ...prevColumns,
+            {
+                id: `${id}`, // Ensure a unique id for each new section
+                title: title,
+            },
+        ]);
+    };
+    // const handleAddTask = (
+    //     id: UniqueIdentifier,
+    //     columnId: ColumnId,
+    //     content: string,
+    //     priority: 'high' | 'medium' | 'low',
+    //     transcript: 'SOP' | 'LOR' | 'Resume' | 'Other',
+    //     deadline: string
+    // ) => {
+    //     setTasks((prevTasks) => [
+    //         ...prevTasks,
+    //         { id, columnId, content, priority, transcript, deadline }
+    //     ]);
+    // };
     return (
-        <DndContext
-            accessibility={{
-                announcements,
-            }}
-            sensors={sensors}
-            onDragStart={onDragStart}
-            onDragEnd={onDragEnd}
-            onDragOver={onDragOver}
-        >
-            <BoardContainer>
-                <SortableContext items={columnsId}>
-                    {columns.map((col) => (
-                        <BoardColumn
-                            key={col.id}
-                            column={col}
-                            tasks={tasks.filter((task) => task.columnId === col.id)}
-                        />
-                    ))}
-                </SortableContext>
-            </BoardContainer>
+        <div className="flex flex-col justify-center items-center gap-y-4">
+            <div className="flex w-full justify-end items-center">
+                {/* <Button onClick={handleAddSection}> */}
+                {/* <CirclePlusIcon className="mr-2 h-4 w-4" /> Add Section */}
+                {/* </Button> */}
+                <AddSectionModal handleAddSection={handleAddSection} open={open} setOpen={setOpen} />
+            </div>
+            <div className="max-w-screen-xl">
+                <DndContext
+                    accessibility={{
+                        announcements,
+                    }}
+                    sensors={sensors}
+                    onDragStart={onDragStart}
+                    onDragEnd={onDragEnd}
+                    onDragOver={onDragOver}
+                >
 
-            {"document" in window &&
-                createPortal(
-                    <DragOverlay>
-                        {activeColumn && (
-                            <BoardColumn
-                                isOverlay
-                                column={activeColumn}
-                                tasks={tasks.filter(
-                                    (task) => task.columnId === activeColumn.id
+                    <BoardContainer>
+                        <SortableContext items={columnsId}>
+                            {columns.map((col) => (
+                                <BoardColumn
+                                    key={col.id}
+                                    column={col}
+                                    tasks={tasks.filter((task) => task.columnId === col.id)}
+                                />
+                            ))}
+                        </SortableContext>
+                    </BoardContainer>
+
+                    {"document" in window &&
+                        createPortal(
+                            <DragOverlay>
+                                {activeColumn && (
+                                    <BoardColumn
+                                        isOverlay
+                                        column={activeColumn}
+                                        tasks={tasks.filter(
+                                            (task) => task.columnId === activeColumn.id
+                                        )}
+                                    />
                                 )}
-                            />
+                                {activeTask && <TaskCard task={activeTask} isOverlay />}
+                            </DragOverlay>,
+                            document.body
                         )}
-                        {activeTask && <TaskCard task={activeTask} isOverlay />}
-                    </DragOverlay>,
-                    document.body
-                )}
-        </DndContext>
+                </DndContext>
+            </div>
+
+        </div>
     );
 
     function onDragStart(event: DragStartEvent) {

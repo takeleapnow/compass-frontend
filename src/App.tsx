@@ -10,6 +10,7 @@ import { Profile } from './components/pages/profile'
 import { ToastContainer } from 'react-toastify'
 import { Resources } from './components/pages/resources'
 import { useEffect } from 'react'
+import { Support } from './components/pages/support'
 function App() {
   useEffect(() => {
     if (localStorage.theme === "dark" ) {
@@ -24,9 +25,13 @@ function App() {
      <ToastContainer />
      <Router>
       <Routes>
+        {/* public */}
         <Route path="/" element={<LandingPage/>} />
         <Route path="/signin" element={<Signin/>} />
         <Route path="/signup" element={<Signup/>} />
+        <Route path="/support" element={<Support/>} />
+
+        {/* private */}
 
         <Route path= "/applications" element={<MyApplications/>} />
 

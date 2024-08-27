@@ -1,5 +1,5 @@
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
-import { useDndContext, type UniqueIdentifier } from "@dnd-kit/core";
+import { useDndContext } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { useMemo } from "react";
 import { Task, TaskCard } from "./TaskCard";

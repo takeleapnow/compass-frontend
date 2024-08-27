@@ -20,8 +20,6 @@ import { type Task, TaskCard } from "./TaskCard";
 import type { Column } from "./BoardColumn";
 import { hasDraggableData } from "./utils";
 import { coordinateGetter } from "./multipleContainersKeyboardPreset";
-import { Button } from "@/components/ui/button";
-import { CirclePlusIcon } from "lucide-react";
 import AddSectionModal from "./ui/AddSectionModal";
 
 export const defaultCols = [
@@ -270,19 +268,19 @@ export function KanbanBoard() {
             },
         ]);
     };
-    const handleAddTask = (
-        id: UniqueIdentifier,
-        columnId: ColumnId,
-        content: string,
-        priority: 'high' | 'medium' | 'low',
-        transcript: 'SOP' | 'LOR' | 'Resume' | 'Other',
-        deadline: string
-    ) => {
-        setTasks((prevTasks) => [
-            ...prevTasks,
-            { id, columnId, content, priority, transcript, deadline }
-        ]);
-    };
+    // const handleAddTask = (
+    //     id: UniqueIdentifier,
+    //     columnId: ColumnId,
+    //     content: string,
+    //     priority: 'high' | 'medium' | 'low',
+    //     transcript: 'SOP' | 'LOR' | 'Resume' | 'Other',
+    //     deadline: string
+    // ) => {
+    //     setTasks((prevTasks) => [
+    //         ...prevTasks,
+    //         { id, columnId, content, priority, transcript, deadline }
+    //     ]);
+    // };
     return (
         <div className="flex flex-col justify-center items-center gap-y-4">
             <div className="flex w-full justify-end items-center">

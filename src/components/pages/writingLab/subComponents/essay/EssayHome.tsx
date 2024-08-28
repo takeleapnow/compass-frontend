@@ -1,7 +1,6 @@
 import { EssayProps } from "@/types/writing-lab";
 import WritingLabCard from "../../WritingLabCard";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { IoAddOutline } from "react-icons/io5";
 import WLAddEssay from "./WLAddEssay";
 const EssayHome = ({
   essayData,

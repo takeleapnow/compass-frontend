@@ -31,8 +31,8 @@ const Header = () => {
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </PopoverTrigger>
-        <PopoverContent className="px-0 pb-0">
-          <div className="flex items-center flex-col">
+        <PopoverContent className="px-0 2xl:w-[300px] w-[290px] pb-0 ">
+          <div className="flex items-center flex-col ">
             <Avatar className="2xl:w-20 2xl:h-20 w-16 h-16">
               <AvatarImage src="https://github.com/shadcn.png" className="" />
               <AvatarFallback>CN</AvatarFallback>

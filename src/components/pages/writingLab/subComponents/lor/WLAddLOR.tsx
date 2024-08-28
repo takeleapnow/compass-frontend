@@ -1,4 +1,3 @@
-import Essay from "@/components/pages/myApplications/subComponents/Essay";
 import Recommender from "@/components/pages/myApplications/subComponents/Recommender";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,7 +21,7 @@ const WLAddLOR = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Essays</DialogTitle>
+          <DialogTitle>Add Recommender</DialogTitle>
           <div>
             <Recommender />
             <Button className="w-full mt-4">

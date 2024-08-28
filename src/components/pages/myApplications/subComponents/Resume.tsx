@@ -12,6 +12,7 @@ interface ResumeProps {
   nameOfResume: string;
   status: string;
   globalUse: boolean;
+  associatedUniversity?: string;
 }
 
 const Resume = () => {
@@ -20,6 +21,7 @@ const Resume = () => {
       nameOfResume: "",
       status: "",
       globalUse: false,
+      associatedUniversity: "",
     },
   ]);
 
@@ -30,6 +32,7 @@ const Resume = () => {
         nameOfResume: "",
         status: "",
         globalUse: false,
+        associatedUniversity: "",
       },
     ]);
   };
@@ -84,7 +87,29 @@ const Resume = () => {
                   placeholder="Name of Resume"
                 />
               </div>
-              <div className="w-5/6">
+              <div className="w-2/5">
+                <Label htmlFor="status">Associated University</Label>
+                <Select
+                  value={resume.status}
+                  onValueChange={(value) => {
+                    handleChange(
+                      {
+                        target: { name: "associatedUniversity", value },
+                      } as React.ChangeEvent<HTMLSelectElement>,
+                      index
+                    );
+                  }}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Associated University" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Pending">Pending</SelectItem>
+                    <SelectItem value="Completed">Completed</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="w-2/5">
                 <Label htmlFor="status">Status</Label>
                 <Select
                   value={resume.status}

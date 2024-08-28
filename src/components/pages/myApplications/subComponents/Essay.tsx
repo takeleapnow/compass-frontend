@@ -22,6 +22,7 @@ interface EssayProps {
   status: string;
   essayPrompt: string;
   globalUse: boolean;
+  associatedUniversity?: string;
 }
 
 const Essay = () => {
@@ -32,7 +33,8 @@ const Essay = () => {
       wordLimit: 0,
       status: "",
       essayPrompt: "",
-      globalUse: false,
+      globalUse: false, //true if the user wants to use it for multiple applications
+      associatedUniversity: "", //parent university
     },
   ]);
 
@@ -46,6 +48,7 @@ const Essay = () => {
         status: "",
         essayPrompt: "",
         globalUse: false,
+        associatedUniversity: "",
       },
     ]);
   };
@@ -108,7 +111,7 @@ const Essay = () => {
                   placeholder="Title"
                 />
               </div>
-              <div className="w-5/6">
+              <div className="w-2/5">
                 <Label htmlFor="type">Essay Type</Label>
                 <Select
                   value={essay.type}
@@ -127,6 +130,39 @@ const Essay = () => {
                 >
                   <SelectTrigger className="">
                     <SelectValue placeholder="Essay Type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Personal Statement">
+                      Personal Statement
+                    </SelectItem>
+                    <SelectItem value="Statement of Purpose">
+                      Statement of Purpose
+                    </SelectItem>
+                    <SelectItem value="Diversity Statement">
+                      Diversity Statement
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="w-2/5">
+                <Label htmlFor="type">Associated University</Label>
+                <Select
+                  value={essay.associatedUniversity}
+                  onValueChange={(value) => {
+                    handleChange(
+                      {
+                        target: { name: "associatedUniversity", value },
+                      } as React.ChangeEvent<
+                        | HTMLInputElement
+                        | HTMLSelectElement
+                        | HTMLTextAreaElement
+                      >,
+                      index
+                    );
+                  }}
+                >
+                  <SelectTrigger className="">
+                    <SelectValue placeholder="Associated University " />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Personal Statement">

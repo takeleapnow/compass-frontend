@@ -18,7 +18,7 @@ interface RecommenderProps {
   recommendationType: string;
   nameOfRecommender: string;
   emailOfRecommender: string;
-  organisationOfRecommender: string;
+  associatedUniversity?: string;
   recommenderType: string;
   relationWithApplicant: string;
   status: string;
@@ -31,7 +31,7 @@ const Recommender = () => {
       recommendationType: "",
       nameOfRecommender: "",
       emailOfRecommender: "",
-      organisationOfRecommender: "",
+      associatedUniversity: "",
       recommenderType: "",
       relationWithApplicant: "",
       status: "",
@@ -46,7 +46,7 @@ const Recommender = () => {
         recommendationType: "",
         nameOfRecommender: "",
         emailOfRecommender: "",
-        organisationOfRecommender: "",
+        associatedUniversity: "",
         recommenderType: "",
         relationWithApplicant: "",
         status: "",
@@ -142,14 +142,14 @@ const Recommender = () => {
                 />
               </div>
               <div className="w-2/5">
-                <Label htmlFor="organisationOfRecommender">
-                  Organisation/Institute
+                <Label htmlFor="associatedUniversity">
+                Associated University/Organisation
                 </Label>
                 <Input
                   type="text"
-                  id="organisationOfRecommender"
-                  name="organisationOfRecommender"
-                  value={recommender.organisationOfRecommender}
+                  id="associatedUniversity"
+                  name="associatedUniversity"
+                  value={recommender.associatedUniversity}
                   onChange={(e) => handleChange(e, index)}
                   placeholder="Organisation of Recommender"
                 />

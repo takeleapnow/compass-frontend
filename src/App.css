@@ -76,4 +76,11 @@
   .page-subtitle{
     @apply text-xl flex items-center justify-between font-bold text-lightPrimary mb-4 dark:text-darkContrast ;
   }
+  .wl-section{
+    @apply flex flex-col gap-4 bg-purple-100 dark:bg-darkAccent p-4 rounded-lg;
+  }
+  .wl-section-title{
+    @apply text-xl font-bold text-lightPrimary dark:text-darkPrimary;
+  }
+
 }

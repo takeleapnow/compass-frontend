@@ -13,7 +13,22 @@ const EssayHome = ({
     <div className="z-1">
       <ScrollArea className="rounded-md border z-0">
         <div className="wl-section">
-          <p className="wl-section-title">Essay</p>
+          {/* temporarily added function */}
+          <p className="wl-section-title" onClick={()=>{
+            setEssayData([
+              ...essayData,
+              {
+                essayTitle: "",
+                essayType: "",
+                essayStatus: "",
+                associatedUniversity: "",
+                universityDeadline: {
+                  seconds: "",
+                  nanos: "",
+                },
+              },
+            ])
+          }}>Essay</p>
           <div className="flex items-center gap-4">
             {essayData.map((essay, index) => (
               <WritingLabCard

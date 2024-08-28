@@ -12,7 +12,22 @@ const ResumeHome = ({
   return (
     <ScrollArea className="w-full whitespace-nowrap rounded-md border">
       <div className="wl-section">
-        <p className="wl-section-title">Resume</p>
+        {/* temp addition */}
+        <p className="wl-section-title" onClick={()=>{
+          setResumeData([
+            ...resumeData,
+            {
+              resumeStatus:"",
+              resumeTitle:"",
+              associatedUniversity: "",
+              universityDeadline: {
+                seconds: "",
+                nanos: "",
+              },
+            },
+          ])
+
+        }}>Resume</p>
         <div className="flex items-center gap-4">
           {resumeData.map((resume, index) => (
             <WritingLabCard

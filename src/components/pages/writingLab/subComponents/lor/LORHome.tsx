@@ -26,7 +26,8 @@ const LORHome = ({
   return (
     <ScrollArea className="w-full whitespace-nowrap rounded-md border">
       <div className="wl-section">
-        <p className="wl-section-title">Letter of Recommendation</p>
+        {/* temporarily added function */}
+        <p className="wl-section-title" onClick={handleLORAdd}>Letter of Recommendation</p>
         <div className="flex items-center gap-4">
           {lorData.map((lor, index) => (
             <WritingLabCard

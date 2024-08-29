@@ -39,7 +39,7 @@ export const defaultCols = [
 
 export type ColumnId = (typeof defaultCols)[number]["id"];
 
-const initialTasks: Task[] = [
+export const initialTasks: Task[] = [
     {
         id: "task1",
         columnId: "done",
@@ -145,12 +145,17 @@ const initialTasks: Task[] = [
         deadline: "25/08/2024",
     },
 ];
-export function KanbanBoard() {
+export interface KanbanBoardProps {
+    tasks: Task[];
+    setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+    addTask: (task: Task) => void;
+}
+export function KanbanBoard({ tasks, setTasks, addTask }: KanbanBoardProps) {
     const [columns, setColumns] = useState<Column[]>(defaultCols);
     const pickedUpTaskColumn = useRef<ColumnId | null>(null);
     const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
 
-    const [tasks, setTasks] = useState<Task[]>(initialTasks);
+    // const [tasks, setTasks] = useState<Task[]>(initialTasks);
 
     const [activeColumn, setActiveColumn] = useState<Column | null>(null);
 
@@ -268,6 +273,14 @@ export function KanbanBoard() {
             },
         ]);
     };
+    const handleDeleteTask = (taskId: UniqueIdentifier) => {
+        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    };
+
+    const handleDeleteColumn = (columnId: ColumnId) => {
+        setColumns((prevColumns) => prevColumns.filter((column) => column.id !== columnId));
+        setTasks((prevTasks) => prevTasks.filter((task) => task.columnId !== columnId));
+    };
     // const handleAddTask = (
     //     id: UniqueIdentifier,
     //     columnId: ColumnId,
@@ -282,13 +295,13 @@ export function KanbanBoard() {
     //     ]);
     // };
     return (
-        <div className="flex flex-col justify-center items-center gap-y-4">
-            <div className="flex w-full justify-end items-center">
-                {/* <Button onClick={handleAddSection}> */}
-                {/* <CirclePlusIcon className="mr-2 h-4 w-4" /> Add Section */}
-                {/* </Button> */}
-                <AddSectionModal handleAddSection={handleAddSection} open={open} setOpen={setOpen} />
-            </div>
+        <div className="flex flex-col h-full justify-center items-center gap-y-4">
+            {/* <div className="flex w-full justify-end items-center"> */}
+            {/* <Button onClick={handleAddSection}> */}
+            {/* <CirclePlusIcon className="mr-2 h-4 w-4" /> Add Section */}
+            {/* </Button> */}
+            {/* <AddSectionModal handleAddSection={handleAddSection} open={open} setOpen={setOpen} /> */}
+            {/* </div> */}
             <div className="max-w-screen-xl">
                 <DndContext
                     accessibility={{
@@ -307,8 +320,14 @@ export function KanbanBoard() {
                                     key={col.id}
                                     column={col}
                                     tasks={tasks.filter((task) => task.columnId === col.id)}
+                                    setTasks={setTasks}
+                                    handleDeleteTask={handleDeleteTask}
+                                    handleDeleteColumn={handleDeleteColumn}
+                                    addTask={addTask}
                                 />
                             ))}
+                            <AddSectionModal handleAddSection={handleAddSection} open={open} setOpen={setOpen} />
+
                         </SortableContext>
                     </BoardContainer>
 
@@ -322,9 +341,13 @@ export function KanbanBoard() {
                                         tasks={tasks.filter(
                                             (task) => task.columnId === activeColumn.id
                                         )}
+                                        setTasks={setTasks}
+                                        handleDeleteTask={handleDeleteTask}
+                                        handleDeleteColumn={handleDeleteColumn}
+                                        addTask={addTask}
                                     />
                                 )}
-                                {activeTask && <TaskCard task={activeTask} isOverlay />}
+                                {activeTask && <TaskCard task={activeTask} isOverlay handleDeleteTask={handleDeleteTask} />}
                             </DragOverlay>,
                             document.body
                         )}

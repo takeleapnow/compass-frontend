@@ -2,13 +2,34 @@ import Dashboard from "@/components/shared/wrappers/Dashboard";
 import Stats from "./subComponents/Stats";
 import DashboardNavbar from "./subComponents/DashboardNavbar";
 import { useEffect, useState } from "react";
-// import axios from "axios";
 import no_shortlist from "@/assets/images/no_shortlists.webp";
 import uni from "@/assets/images/uni.png";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { IoAdd } from "react-icons/io5";
-import { GoArrowUpRight } from "react-icons/go";
+import AddTask from "./subComponents/AddTask";
+import AddApplicationMaterial from "./subComponents/AddApplicationMaterial";
+import { FiEdit, FiFileText } from "react-icons/fi";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { PiArrowUpRightBold, PiCompassRoseThin } from "react-icons/pi";
+import { LifeBuoy } from "lucide-react";
+import { LuFileClock, LuFileEdit, LuFileLock2 } from "react-icons/lu";
+import { HiOutlineGlobeAsiaAustralia } from "react-icons/hi2";
+
 interface ApplicationShortlists {
   uniName: string;
   program: string;
@@ -16,8 +37,13 @@ interface ApplicationShortlists {
   currency: string;
   status: string;
   id: number;
+  deadline: {
+    seconds: number;
+    nanos: number;
+  };
+  tasksToComplete: string;
+  progress:number
 }
-[];
 
 const MyApplications = () => {
   const [shortlists, setShortlists] = useState<ApplicationShortlists[]>([]);
@@ -43,12 +69,18 @@ const MyApplications = () => {
 
   const applications = [
     {
-      uniName: "Standford University",
+      uniName: "Stanford University",
       program: "Masters in Computer Science",
       applicationFees: 300,
       currency: "USD",
       status: "Pending",
       id: 1,
+      deadline: {
+        seconds: 1630000000,
+        nanos: 0,
+      },
+      tasksToComplete: "5",
+      progress:20
     },
     {
       uniName: "Harvard University",
@@ -57,6 +89,12 @@ const MyApplications = () => {
       currency: "USD",
       status: "Pending",
       id: 2,
+      deadline: {
+        seconds: 1630000000,
+        nanos: 0,
+      },
+      tasksToComplete: "9",
+      progress:20
     },
     {
       uniName: "MIT",
@@ -65,8 +103,27 @@ const MyApplications = () => {
       currency: "USD",
       status: "Pending",
       id: 3,
+      deadline: {
+        seconds: 1630000000,
+        nanos: 0,
+      },
+      tasksToComplete: "4",
+      progress:20
     },
   ];
+
+  // Helper function to format the deadline
+  const handleDateFormatter = (deadline: {
+    seconds: number;
+    nanos: number;
+  }): string => {
+    const date = new Date(deadline.seconds * 1000); // Convert seconds to milliseconds
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   return (
     <Dashboard>
       <div>
@@ -81,7 +138,7 @@ const MyApplications = () => {
             <div className="flex flex-wrap gap-4">
               {shortlists.map((shortlist, index) => (
                 <div
-                  className="w-2/5 border rounded-md p-2 shadow-sm "
+                  className="w-2/5 2xl:w-1/4  border rounded-md p-2 shadow-sm "
                   key={index}
                 >
                   <div className="flex flex-col gap-2">
@@ -91,14 +148,109 @@ const MyApplications = () => {
                         src={uni}
                         className="w-24 h-24"
                       />
-                      <div className="flex flex-col ">
-                        <p className="text-lightPrimary font-semibold text-xl">
-                          {shortlist.uniName}
-                        </p>
+                      <div className="flex flex-col w-full ">
+                        <div className="flex justify-between items-center w-full">
+                          <p className="text-lightPrimary font-semibold text-xl">
+                            {shortlist.uniName}
+                          </p>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <div>
+                                <FiEdit className="text-lg" />
+                              </div>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-56">
+                              <DropdownMenuLabel>
+                                Application Menu
+                              </DropdownMenuLabel>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuGroup>
+                                <DropdownMenuItem>
+                                  <FiFileText className="mr-2 h-4 w-4" />
+                                  <span>View application</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  <PiCompassRoseThin className="mr-2 h-4 w-4" />
+                                  <span>Quick access</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  <HiOutlineGlobeAsiaAustralia className="mr-2 h-4 w-4" />
+                                  <span>View Portal</span>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  <LuFileEdit className="mr-2 h-4 w-4" />
+                                  <span>Edit application</span>
+                                </DropdownMenuItem>
+                              </DropdownMenuGroup>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuGroup>
+                                <DropdownMenuSub>
+                                  <DropdownMenuSubTrigger>
+                                    <LuFileClock className="mr-2 h-4 w-4" />
+                                    <span>Status</span>
+                                  </DropdownMenuSubTrigger>
+                                  <DropdownMenuPortal>
+                                    <DropdownMenuSubContent>
+                                      <DropdownMenuRadioGroup
+                                        value={"Applying"}
+                                        onValueChange={() => {}}
+                                      >
+                                        <DropdownMenuRadioItem value="Applying">
+                                          Applying
+                                        </DropdownMenuRadioItem>
+                                        <DropdownMenuRadioItem value="Considering">
+                                          Considering
+                                        </DropdownMenuRadioItem>
+                                        <DropdownMenuRadioItem value="Submitted">
+                                          Submitted
+                                        </DropdownMenuRadioItem>
+                                      </DropdownMenuRadioGroup>
+                                    </DropdownMenuSubContent>
+                                  </DropdownMenuPortal>
+                                </DropdownMenuSub>
+                                <DropdownMenuSub>
+                                  <DropdownMenuSubTrigger>
+                                    <LuFileLock2 className="mr-2 h-4 w-4" />
+                                    <span>Privacy</span>
+                                  </DropdownMenuSubTrigger>
+                                  <DropdownMenuPortal>
+                                    <DropdownMenuSubContent>
+                                      <DropdownMenuRadioGroup
+                                        value={"Public"}
+                                        onValueChange={() => {}}
+                                      >
+                                        <DropdownMenuRadioItem value="Public">
+                                          Visible to mentor
+                                        </DropdownMenuRadioItem>
+                                        <DropdownMenuRadioItem value="Private">
+                                          Private
+                                        </DropdownMenuRadioItem>
+                                      </DropdownMenuRadioGroup>
+                                    </DropdownMenuSubContent>
+                                  </DropdownMenuPortal>
+                                </DropdownMenuSub>
+                              </DropdownMenuGroup>
+                              <DropdownMenuSeparator />
+
+                              <DropdownMenuItem>
+                                <LifeBuoy className="mr-2 h-4 w-4" />
+                                <span>Support</span>
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
                         <p>{shortlist.program}</p>
-                        <p className="bg-gray-200 rounded-full w-fit px-3 mt-1 text-sm">
-                          {shortlist.status}
-                        </p>
+                        <div className="flex items-center gap-2 mt-2">
+                          <p className="bg-gray-200 rounded-full w-fit px-3 text-sm">
+                            {shortlist.status}
+                          </p>
+                          <div className="flex gap-2 items-center">
+                            <p className="text-gray-700 font-semibold">
+                              Deadline
+                            </p>
+                            <p>{handleDateFormatter(shortlist.deadline)}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div className="flex flex-wrap items-center gap-1">
@@ -107,33 +259,25 @@ const MyApplications = () => {
                           <IoAdd /> Pre-requisites
                         </Button>
                       </Link>
+                      <AddApplicationMaterial />
+                      <AddTask />
                       <Link to={""}>
                         <Button variant={"sleekTransparent"} size={"sleek"}>
-                          <IoAdd /> Application Material
-                        </Button>
-                      </Link>
-                      <Link to={""}>
-                        <Button variant={"sleekTransparent"} size={"sleek"}>
-                          <IoAdd /> Task
+                          <PiArrowUpRightBold /> View
                         </Button>
                       </Link>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between text-sm mt-4">
-                    <div className="flex gap-2 items-center">
-                      <p className="text-gray-700 font-semibold">
-                        Application Fees
-                      </p>
-                      <p>
-                        {shortlist.currency} {shortlist.applicationFees}
-                      </p>
+                   <div className="flex items-center gap-2">
+                   <p className="text-gray-700">Tasks to complete</p>
+                   <p className="text-gray-700">{shortlist.tasksToComplete}</p>
+                   </div>
+                    <div className="flex items-center gap-2">
+                    <p className="text-gray-700">Progress</p>
+                    <p className="text-gray-700">{shortlist.progress}%</p>
                     </div>
-                    <Link to={""}>
-                      <p className="flex items-center gap-1 hover:text-lightSecondary">
-                        Portal Link <GoArrowUpRight />{" "}
-                      </p>
-                    </Link>
                   </div>
                 </div>
               ))}

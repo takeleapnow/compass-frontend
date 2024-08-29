@@ -35,7 +35,7 @@ interface BoardColumnProps {
     addTask: (newTask: Task) => void;
 }
 
-export function BoardColumn({ column, tasks, isOverlay, setTasks, handleDeleteTask, handleDeleteColumn, addTask }: BoardColumnProps) {
+export function BoardColumn({ column, tasks, isOverlay, handleDeleteTask, handleDeleteColumn, addTask }: BoardColumnProps) {
     const [open, setOpen] = useState(false);
     const tasksIds = useMemo(() => {
         return tasks.map((task) => task.id);

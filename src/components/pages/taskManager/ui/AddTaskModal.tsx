@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogContent,
@@ -7,49 +7,33 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { ChangeEvent, useState } from "react"
-import { UniqueIdentifier } from "@dnd-kit/core"
-import { ColumnId } from "../KanbanBoard" // Ensure correct import path
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { ChangeEvent, useState } from "react";
+import { UniqueIdentifier } from "@dnd-kit/core";
+import { LucidePlusCircle } from "lucide-react";
+import { Task } from "../TaskCard";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"; // Import Select components
 
 interface Props {
-    handleAddTask: (
-        id: UniqueIdentifier,
-        columnId: ColumnId,
-        content: string,
-        priority: 'high' | 'medium' | 'low',
-        transcript: 'SOP' | 'LOR' | 'Resume' | 'Other',
-        deadline: string
-    ) => void,
-    open: boolean,
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
-    columnId: string,
+    handleAddTask: ({ id, columnId, content, priority, transcript, deadline }: Task) => void;
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    columnId: string;
+    length: number;
 }
 
-export default function AddTaskModal({ handleAddTask, open, setOpen, columnId }: Props) {
-    const [id, setId] = useState<UniqueIdentifier>('');
-    // const [columnId, setColumnId] = useState<ColumnId>('todo'); // Default or adjust as needed
+export default function AddTaskModal({ handleAddTask, open, setOpen, columnId, length }: Props) {
+    const [id] = useState<UniqueIdentifier>(`task-${length + 1}`); // Unique ID for each task
     const [content, setContent] = useState<string>('');
     const [priority, setPriority] = useState<'high' | 'medium' | 'low'>('medium');
     const [transcript, setTranscript] = useState<'SOP' | 'LOR' | 'Resume' | 'Other'>('Other');
     const [deadline, setDeadline] = useState<string>('');
 
-    function handleIdChange(event: ChangeEvent<HTMLInputElement>): void {
-        setId(event.target.value);
-    }
-
     function handleContentChange(event: ChangeEvent<HTMLInputElement>): void {
         setContent(event.target.value);
-    }
-
-    function handlePriorityChange(event: ChangeEvent<HTMLSelectElement>): void {
-        setPriority(event.target.value as 'high' | 'medium' | 'low');
-    }
-
-    function handleTranscriptChange(event: ChangeEvent<HTMLSelectElement>): void {
-        setTranscript(event.target.value as 'SOP' | 'LOR' | 'Resume' | 'Other');
     }
 
     function handleDeadlineChange(event: ChangeEvent<HTMLInputElement>): void {
@@ -57,14 +41,14 @@ export default function AddTaskModal({ handleAddTask, open, setOpen, columnId }:
     }
 
     const addTask = () => {
-        handleAddTask(id, columnId, content, priority, transcript, deadline);
-        setOpen(false);
+        handleAddTask({ id, columnId, content, priority, transcript, deadline });
+        setOpen(false); // Close the modal after adding a task
     }
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button onClick={() => setOpen(true)}>Add Task</Button>
+                <LucidePlusCircle size={20} onClick={() => setOpen(true)} />
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
@@ -74,17 +58,7 @@ export default function AddTaskModal({ handleAddTask, open, setOpen, columnId }:
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="id" className="text-right">
-                            ID
-                        </Label>
-                        <Input
-                            id="id"
-                            value={id}
-                            className="col-span-3"
-                            onChange={handleIdChange}
-                        />
-                    </div>
+                    {/* Task content input using shadcn Input component */}
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="content" className="text-right">
                             Content
@@ -96,37 +70,47 @@ export default function AddTaskModal({ handleAddTask, open, setOpen, columnId }:
                             onChange={handleContentChange}
                         />
                     </div>
+                    {/* Dropdown for Priority using shadcn DropdownMenu components */}
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="priority" className="text-right">
                             Priority
                         </Label>
-                        <select
-                            id="priority"
-                            value={priority}
-                            className="col-span-3"
-                            onChange={handlePriorityChange}
-                        >
-                            <option value="high">High</option>
-                            <option value="medium">Medium</option>
-                            <option value="low">Low</option>
-                        </select>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline">{priority.charAt(0).toUpperCase() + priority.slice(1)}</Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-56">
+                                <DropdownMenuLabel>Select Priority</DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuRadioGroup
+                                    value={priority}
+                                    onValueChange={(value) => setPriority(value as 'high' | 'medium' | 'low')}
+                                >
+                                    <DropdownMenuRadioItem value="high">High</DropdownMenuRadioItem>
+                                    <DropdownMenuRadioItem value="medium">Medium</DropdownMenuRadioItem>
+                                    <DropdownMenuRadioItem value="low">Low</DropdownMenuRadioItem>
+                                </DropdownMenuRadioGroup>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
+                    {/* Transcript input using shadcn Select component */}
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="transcript" className="text-right">
                             Transcript
                         </Label>
-                        <select
-                            id="transcript"
-                            value={transcript}
-                            className="col-span-3"
-                            onChange={handleTranscriptChange}
-                        >
-                            <option value="SOP">SOP</option>
-                            <option value="LOR">LOR</option>
-                            <option value="Resume">Resume</option>
-                            <option value="Other">Other</option>
-                        </select>
+                        <Select value={transcript} onValueChange={(value) => setTranscript(value as 'SOP' | 'LOR' | 'Resume' | 'Other')}>
+                            <SelectTrigger className="col-span-3">
+                                <SelectValue placeholder="Select Transcript" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="SOP">SOP</SelectItem>
+                                <SelectItem value="LOR">LOR</SelectItem>
+                                <SelectItem value="Resume">Resume</SelectItem>
+                                <SelectItem value="Other">Other</SelectItem>
+                            </SelectContent>
+                        </Select>
                     </div>
+                    {/* Deadline input using shadcn Input component */}
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="deadline" className="text-right">
                             Deadline
@@ -141,9 +125,9 @@ export default function AddTaskModal({ handleAddTask, open, setOpen, columnId }:
                     </div>
                 </div>
                 <DialogFooter>
-                    <Button type="submit" onClick={addTask}>Save Task</Button>
+                    <Button type="button" onClick={addTask}>Save Task</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
-    )
+    );
 }

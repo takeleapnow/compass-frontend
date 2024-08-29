@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { LucidePlusCircle } from "lucide-react"
 // import { Column } from "../BoardColumn"
 import { ChangeEvent, useState } from "react"
 
@@ -32,7 +33,10 @@ export default function AddSectionModal({ handleAddSection, open, setOpen }: Pro
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button onClick={() => setOpen(true)}>Add Section</Button>
+                {/* <Button  variant={"ghost"}> */}
+                <LucidePlusCircle size={64} onClick={() => setOpen(true)} className="hover:cursor-pointer text-lightPrimary p-2 hover:bg-lightAccent transition-all delay-100 ease-in-out rounded-full" strokeWidth={1} />
+                {/* Add Section */}
+                {/* </Button> */}
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>

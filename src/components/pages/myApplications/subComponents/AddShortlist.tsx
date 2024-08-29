@@ -18,7 +18,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { MdFormatListBulletedAdd, MdOutlineFileDownloadDone } from "react-icons/md";
+import {
+  MdFormatListBulletedAdd,
+  MdOutlineFileDownloadDone,
+} from "react-icons/md";
 import DatePicker from "@/components/customComponents/DatePicker";
 import { TooltipComponent } from "@/components/customComponents";
 import { FaUniversity } from "react-icons/fa";
@@ -61,7 +64,9 @@ const AddShortlist = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle><FaUniversity /> Add new University shortlist</DialogTitle>
+          <DialogTitle>
+            <FaUniversity /> Add new University shortlist
+          </DialogTitle>
           <DialogDescription></DialogDescription>
           <div className="flex flex-wrap gap-4">
             <div className="w-2/5">
@@ -127,7 +132,10 @@ const AddShortlist = () => {
               </div>
             </div>
             <div className="w-2/5">
-              <Label><TooltipComponent text="Deadline to apply to the program on university portal" />Application deadline</Label>
+              <Label>
+                <TooltipComponent text="Deadline to apply to the program on university portal" />
+                Application deadline
+              </Label>
               <DatePicker
                 date={shortlist.applicationDeadline}
                 setDate={(date) =>
@@ -198,7 +206,10 @@ const AddShortlist = () => {
             </div>
           </div>
           <div className="flex items-end justify-end pt-8">
-            <Button variant="formGradient"><MdOutlineFileDownloadDone />Add shortlist</Button>
+            <Button variant="formGradient">
+              <MdOutlineFileDownloadDone />
+              Add shortlist
+            </Button>
           </div>
         </DialogHeader>
       </DialogContent>

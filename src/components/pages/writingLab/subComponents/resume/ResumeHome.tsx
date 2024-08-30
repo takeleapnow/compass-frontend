@@ -10,25 +10,25 @@ const ResumeHome = ({
   setResumeData: React.Dispatch<React.SetStateAction<ResumeProps[]>>;
 }) => {
   return (
-    <ScrollArea className="w-full whitespace-nowrap rounded-md border">
-      <div className="wl-section">
-        {/* temp addition */}
-        <p className="wl-section-title" onClick={()=>{
-          setResumeData([
-            ...resumeData,
-            {
-              resumeStatus:"",
-              resumeTitle:"",
-              associatedUniversity: "",
-              universityDeadline: {
-                seconds: "",
-                nanos: "",
-              },
+    <div className="wl-section w-screen">
+      {/* temp addition */}
+      <p className="wl-section-title" onClick={() => {
+        setResumeData([
+          ...resumeData,
+          {
+            resumeStatus: "",
+            resumeTitle: "",
+            associatedUniversity: "",
+            universityDeadline: {
+              seconds: "",
+              nanos: "",
             },
-          ])
+          },
+        ])
 
-        }}>Resume</p>
-        <div className="flex items-center gap-4">
+      }}>Resume</p>
+      <ScrollArea className="rounded-md border w-full whitespace-nowrap">
+        <div className="flex w-full items-center gap-4">
           {resumeData.map((resume, index) => (
             <WritingLabCard
               key={index}
@@ -42,8 +42,8 @@ const ResumeHome = ({
           <WLAddResume />
         </div>
         <ScrollBar orientation="horizontal" />
-      </div>
-    </ScrollArea>
+      </ScrollArea>
+    </div>
   );
 };
 

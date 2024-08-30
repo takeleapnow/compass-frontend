@@ -56,7 +56,7 @@ const WritingLabNav = () => {
   };
 
   return (
-    <div className="flex justify-end gap-4">
+    <div className="flex justify-end gap-4 h-[10%]">
       <Input className="w-1/4" placeholder="Search shortlist..." />
       {/* filter options */}
       <Popover>
@@ -88,11 +88,10 @@ const WritingLabNav = () => {
                       value={uni}
                       size={"sm"}
                       variant={"outline"}
-                      className={` py-1 ${
-                        selectedUniversities.includes(uni)
+                      className={` py-1 ${selectedUniversities.includes(uni)
                           ? "bg-purple-100 "
                           : "bg-gray-200"
-                      }`}
+                        }`}
                       onClick={() =>
                         handleToggle(
                           uni,
@@ -114,11 +113,10 @@ const WritingLabNav = () => {
                       key={status}
                       value={status}
                       size={"sm"}
-                      className={` py-1 ${
-                        selectedStatuses.includes(status)
+                      className={` py-1 ${selectedStatuses.includes(status)
                           ? "bg-purple-100 "
                           : "bg-gray-200"
-                      }`}
+                        }`}
                       onClick={() =>
                         handleToggle(
                           status,
@@ -140,9 +138,8 @@ const WritingLabNav = () => {
                   value="asc"
                   variant={"outline"}
                   size={"sm"}
-                  className={`px-2 py-1 ${
-                    sortOption === "asc" ? "bg-purple-100 " : "bg-gray-200"
-                  }`}
+                  className={`px-2 py-1 ${sortOption === "asc" ? "bg-purple-100 " : "bg-gray-200"
+                    }`}
                   onClick={() => handleSortChange("asc")}
                 >
                   Ascending
@@ -151,9 +148,8 @@ const WritingLabNav = () => {
                   value="desc"
                   variant={"outline"}
                   size={"sm"}
-                  className={`px-2 py-1 ${
-                    sortOption === "desc" ? "bg-purple-100 " : "bg-gray-200"
-                  }`}
+                  className={`px-2 py-1 ${sortOption === "desc" ? "bg-purple-100 " : "bg-gray-200"
+                    }`}
                   onClick={() => handleSortChange("desc")}
                 >
                   Descending

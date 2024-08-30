@@ -16,9 +16,8 @@ const Dashboard = ({ children }: { children: React.ReactNode }) => {
       <Header />
       <div className="min-h-screen flex w-full ">
         <div
-          className={`${
-            isSidebarOpen ? " w-1/3 lg:w-1/4 2xl:w-1/6" : "w-[80px]"
-          }`}
+          className={`${isSidebarOpen ? " w-1/3 lg:w-1/4 2xl:w-1/6" : "w-[80px]"
+            }`}
         >
           <Sidebar
             data={sidebarData}
@@ -27,9 +26,9 @@ const Dashboard = ({ children }: { children: React.ReactNode }) => {
           />
         </div>
         <div
-          className={` ${
-            isSidebarOpen ? "w-3/4 2xl:w-5/6" : "w-full"
-          } p-8 pt-24 dark:bg-darkPrimary bg-white dark:text-gray-200 text-gray-900`}
+          className={` ${isSidebarOpen ? "w-3/4 2xl:w-5/6" : "flex-grow"
+            } p-8 pt-24 dark:bg-darkPrimary bg-white dark:text-gray-200 text-gray-900`}
+          style={{ width: isSidebarOpen ? "" : "calc(100% - 80px)" }}
         >
           {children}
         </div>

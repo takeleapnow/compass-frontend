@@ -13,7 +13,7 @@ const WritingLabCard = ({
   university: string;
 }) => {
   return (
-    <div className=" bg-white gap-4 flex flex-col 2xl:w-1/5 w-1/3 p-3 rounded-md">
+    <div className=" bg-white gap-4 flex flex-col w-96 p-3 rounded-md">
       <div className="flex justify-between">
         <div className="flex flex-col items-start">
           <p className="text-lg font-medium flex-wrap">{title}Essay title</p>

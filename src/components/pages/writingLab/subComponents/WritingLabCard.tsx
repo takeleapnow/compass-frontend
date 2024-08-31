@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const WritingLabCard = ({
   title,
@@ -22,7 +23,9 @@ const WritingLabCard = ({
             {status} pending
           </p>
         </div>
+        <Link to={"/writing-lab/editor"}>
         <p>edit</p>
+        </Link>
       </div>
       <div className="flex justify-between items-start">
         <p className="text-lg text-lightPrimary font-semibold dark:text-darkContrast text-wrap">

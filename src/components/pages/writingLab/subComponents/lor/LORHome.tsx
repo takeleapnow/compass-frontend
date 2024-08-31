@@ -1,5 +1,5 @@
 import { LorProps } from "@/types/writing-lab";
-import WritingLabCard from "../../WritingLabCard";
+import WritingLabCard from "../WritingLabCard";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import WLAddLOR from "./WLAddLOR";
 const LORHome = ({

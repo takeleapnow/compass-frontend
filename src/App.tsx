@@ -4,7 +4,7 @@ import {Route, BrowserRouter as Router, Routes} from "react-router-dom"
 import { LandingPage } from './components/pages/landing'
 import { Signin, Signup } from './components/pages/auth'
 import { MyApplications } from './components/pages/myApplications'
-import { EditorHome, WritingLab } from './components/pages/writingLab'
+import { EditorHome,  WritingLab, WritingMaterialHome } from './components/pages/writingLab'
 import { TaskManger } from './components/pages/taskManager'
 import { Profile } from './components/pages/profile'
 import { ToastContainer } from 'react-toastify'
@@ -37,6 +37,7 @@ function App() {
 
         <Route path="/writing-lab" element={<WritingLab/>} />
         <Route path='/writing-lab/editor' element={<EditorHome/>} />
+        <Route path="/writing-lab/view/all" element={<WritingMaterialHome/>}/>
 
         <Route path="/task-manager" element={<TaskManger/>} />
 

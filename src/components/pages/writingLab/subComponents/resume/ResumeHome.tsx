@@ -1,5 +1,5 @@
 import { ResumeProps } from "@/types/writing-lab";
-import WritingLabCard from "../../WritingLabCard";
+import WritingLabCard from "../WritingLabCard";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import WLAddResume from "./WLAddResume";
 const ResumeHome = ({

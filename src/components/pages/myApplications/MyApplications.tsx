@@ -29,6 +29,7 @@ import { PiArrowUpRightBold, PiCompassRoseThin } from "react-icons/pi";
 import { LifeBuoy } from "lucide-react";
 import { LuFileClock, LuFileEdit, LuFileLock2 } from "react-icons/lu";
 import { HiOutlineGlobeAsiaAustralia } from "react-icons/hi2";
+import { handleDateFormatter } from "@/lib/helper";
 
 interface ApplicationShortlists {
   uniName: string;
@@ -112,18 +113,7 @@ const MyApplications = () => {
     },
   ];
 
-  // Helper function to format the deadline
-  const handleDateFormatter = (deadline: {
-    seconds: number;
-    nanos: number;
-  }): string => {
-    const date = new Date(deadline.seconds * 1000); // Convert seconds to milliseconds
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-
+  
   return (
     <Dashboard>
       <div>

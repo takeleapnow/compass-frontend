@@ -25,7 +25,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { PiArrowUpRightBold, PiCompassRoseThin } from "react-icons/pi";
+import { PiCompassRoseThin } from "react-icons/pi";
 import { LifeBuoy } from "lucide-react";
 import { LuFileClock, LuFileEdit, LuFileLock2 } from "react-icons/lu";
 import { HiOutlineGlobeAsiaAustralia } from "react-icons/hi2";
@@ -155,10 +155,11 @@ const MyApplications = () => {
                               </DropdownMenuLabel>
                               <DropdownMenuSeparator />
                               <DropdownMenuGroup>
+                                <Link to={"/applications/view"}>
                                 <DropdownMenuItem>
                                   <FiFileText className="mr-2 h-4 w-4" />
                                   <span>View application</span>
-                                </DropdownMenuItem>
+                                </DropdownMenuItem></Link>
                                 <DropdownMenuItem>
                                   <PiCompassRoseThin className="mr-2 h-4 w-4" />
                                   <span>Quick access</span>
@@ -251,11 +252,11 @@ const MyApplications = () => {
                       </Link>
                       <AddApplicationMaterial />
                       <AddTask />
-                      <Link to={""}>
+                      {/* <Link to={""}>
                         <Button variant={"sleekTransparent"} size={"sleek"}>
                           <PiArrowUpRightBold /> View
                         </Button>
-                      </Link>
+                      </Link> */}
                     </div>
                   </div>
 

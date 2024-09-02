@@ -17,7 +17,7 @@ import Portfolio from "./Portfolio";
 import Resume from "./Resume";
 import Others from "./Others";
 import {  MdOutlineFileDownloadDone } from "react-icons/md";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const AddApplicationMaterial = () => {
     const handleCreateMaterial = () => {

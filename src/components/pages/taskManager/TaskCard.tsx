@@ -4,11 +4,12 @@ import { CSS } from "@dnd-kit/utilities";
 import { Card, CardContent, CardHeader } from "@/components/pages/taskManager/ui/card";
 import { Button } from "@/components/pages/taskManager/ui/button";
 import { cva } from "class-variance-authority";
-import { GripVertical } from "lucide-react";
+import { GripVertical, LucideTrash2 } from "lucide-react";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"; // Import DropdownMenu components
 import { useState } from "react"; // Import useState for managing state
 import { ColumnId } from "./KanbanBoard";
 import { Badge } from "@/components/ui/badge"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 // Define task interface with priority
 export interface Task {
@@ -23,6 +24,7 @@ export interface Task {
 interface TaskCardProps {
     task: Task;
     isOverlay?: boolean;
+    handleDeleteTask: (taskId: UniqueIdentifier) => void;
 }
 
 export type TaskType = "Task";
@@ -32,7 +34,7 @@ export interface TaskDragData {
     task: Task;
 }
 
-export function TaskCard({ task, isOverlay }: TaskCardProps) {
+export function TaskCard({ task, isOverlay, handleDeleteTask }: TaskCardProps) {
     const {
         setNodeRef,
         attributes,
@@ -126,7 +128,19 @@ export function TaskCard({ task, isOverlay }: TaskCardProps) {
             </CardHeader>
             <div className="flex justify-between px-3 py-3">
                 <Badge variant="secondary">{task.transcript}</Badge>
-                <Badge variant="outline">Deadline: {task.deadline}</Badge>
+                <div className="flex justify-end items-center gap-x-2">
+                    <Badge variant="outline">Deadline: {task.deadline}</Badge>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <LucideTrash2 size={20} onClick={() => { handleDeleteTask(task.id) }} className="hover:cursor-pointer" />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Delete Task</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                </div>
             </div>
             {/* <CardContent className="px-3 pt-3 pb-6 text-left whitespace-pre-wrap">
                 {task.content}

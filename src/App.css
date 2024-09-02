@@ -82,5 +82,8 @@
   .wl-section-title{
     @apply text-xl font-bold text-lightPrimary dark:text-darkPrimary;
   }
+  .tabsSecondary{
+    @apply data-[state=active]:border-b data-[state=active]:border-lightPrimary data-[state=active]:rounded-none
+  }
 
 }

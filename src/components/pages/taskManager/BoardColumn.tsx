@@ -1,14 +1,17 @@
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
-import { useDndContext } from "@dnd-kit/core";
+import { UniqueIdentifier, useDndContext } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Task, TaskCard } from "./TaskCard";
 import { cva } from "class-variance-authority";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Button } from "./ui/button";
-import { GripVertical } from "lucide-react";
+import { GripVertical, LucideTrash2 } from "lucide-react";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
-import { IoCreateOutline } from "react-icons/io5";
+import AddTaskModal from "./ui/AddTaskModal";
+import { ColumnId } from "./KanbanBoard";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
 
 export interface Column {
     id: string;
@@ -26,9 +29,14 @@ interface BoardColumnProps {
     column: Column;
     tasks: Task[];
     isOverlay?: boolean;
+    setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+    handleDeleteTask: (taskId: UniqueIdentifier) => void;
+    handleDeleteColumn: (columnId: ColumnId) => void;
+    addTask: (newTask: Task) => void;
 }
 
-export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
+export function BoardColumn({ column, tasks, isOverlay, handleDeleteTask, handleDeleteColumn, addTask }: BoardColumnProps) {
+    const [open, setOpen] = useState(false);
     const tasksIds = useMemo(() => {
         return tasks.map((task) => task.id);
     }, [tasks]);
@@ -69,7 +77,11 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
             },
         },
     );
-
+    const handleAddTask = ({ columnId, content, priority, transcript, deadline }: Task) => {
+        // setTasks((prevTasks) => [...prevTasks, { id: `task${prevTasks.length + 1}`, columnId, content, priority, transcript, deadline }]);
+        // const newTask = { columnId, content, priority, transcript, deadline }
+        addTask({ id: `task${tasks.length + 1}`, columnId, content, priority, transcript, deadline })
+    }
     return (
         <Card
             ref={setNodeRef}
@@ -90,19 +102,39 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
                     <GripVertical />
                 </Button>
                 <span className="inline-flex items-center justify-center">{column.title}</span>
-                <Button
+                <div className="flex gap-x-2">
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <AddTaskModal handleAddTask={handleAddTask} open={open} setOpen={setOpen} columnId={column.id} length={tasks.length} />
+                                <TooltipContent>
+                                    <p>Add Task</p>
+                                </TooltipContent>
+                            </TooltipTrigger>
+                        </Tooltip>
+                        <Tooltip>
+                            <TooltipTrigger>
+                                <LucideTrash2 size={20} onClick={() => handleDeleteColumn(column.id)} className="hover:cursor-pointer" xlinkTitle="Delete Section" />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Delete Column</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                </div>
+                {/* <Button
                     variant={"ghost"}
                     className="text-primary/50 h-auto cursor-pointer relative"
                     onClick={() => console.log("clicked")}
                 >
-                    <IoCreateOutline size={20} />
-                </Button>
+                    <LucidePlusCircle size={20} />
+                </Button> */}
             </CardHeader>
             <ScrollArea>
                 <CardContent className="flex flex-grow flex-col gap-2 p-2">
                     <SortableContext items={tasksIds}>
                         {tasks.map((task) => (
-                            <TaskCard key={task.id} task={task} />
+                            <TaskCard key={task.id} task={task} handleDeleteTask={handleDeleteTask} />
                         ))}
                     </SortableContext>
                 </CardContent>

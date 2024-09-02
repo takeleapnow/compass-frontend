@@ -1,5 +1,5 @@
 import { LorProps } from "@/types/writing-lab";
-import WritingLabCard from "../../WritingLabCard";
+import WritingLabCard from "../WritingLabCard";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import WLAddLOR from "./WLAddLOR";
 const LORHome = ({
@@ -24,11 +24,11 @@ const LORHome = ({
     ]);
   }
   return (
-    <ScrollArea className="w-full whitespace-nowrap rounded-md border">
-      <div className="wl-section">
-        {/* temporarily added function */}
-        <p className="wl-section-title" onClick={handleLORAdd}>Letter of Recommendation</p>
-        <div className="flex items-center gap-4">
+    <div className="wl-section w-screen">
+      {/* temporarily added function */}
+      <p className="wl-section-title" onClick={handleLORAdd}>Letter of Recommendation</p>
+      <ScrollArea className="rounded-md border w-full whitespace-nowrap">
+        <div className="flex w-max items-center gap-4">
           {lorData.map((lor, index) => (
             <WritingLabCard
               key={index}
@@ -39,12 +39,12 @@ const LORHome = ({
               university={lor.associatedUniversity}
             />
           ))}
-          <WLAddLOR 
+          <WLAddLOR
           />
         </div>
         <ScrollBar orientation="horizontal" />
-      </div>
-    </ScrollArea>
+      </ScrollArea>
+    </div>
   );
 };
 

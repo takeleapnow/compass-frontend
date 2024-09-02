@@ -25,10 +25,11 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { PiArrowUpRightBold, PiCompassRoseThin } from "react-icons/pi";
+import { PiCompassRoseThin } from "react-icons/pi";
 import { LifeBuoy } from "lucide-react";
 import { LuFileClock, LuFileEdit, LuFileLock2 } from "react-icons/lu";
 import { HiOutlineGlobeAsiaAustralia } from "react-icons/hi2";
+import { handleDateFormatter } from "@/lib/helper";
 
 interface ApplicationShortlists {
   uniName: string;
@@ -112,18 +113,7 @@ const MyApplications = () => {
     },
   ];
 
-  // Helper function to format the deadline
-  const handleDateFormatter = (deadline: {
-    seconds: number;
-    nanos: number;
-  }): string => {
-    const date = new Date(deadline.seconds * 1000); // Convert seconds to milliseconds
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
-  };
-
+  
   return (
     <Dashboard>
       <div>
@@ -165,10 +155,11 @@ const MyApplications = () => {
                               </DropdownMenuLabel>
                               <DropdownMenuSeparator />
                               <DropdownMenuGroup>
+                                <Link to={"/applications/view"}>
                                 <DropdownMenuItem>
                                   <FiFileText className="mr-2 h-4 w-4" />
                                   <span>View application</span>
-                                </DropdownMenuItem>
+                                </DropdownMenuItem></Link>
                                 <DropdownMenuItem>
                                   <PiCompassRoseThin className="mr-2 h-4 w-4" />
                                   <span>Quick access</span>
@@ -261,11 +252,11 @@ const MyApplications = () => {
                       </Link>
                       <AddApplicationMaterial />
                       <AddTask />
-                      <Link to={""}>
+                      {/* <Link to={""}>
                         <Button variant={"sleekTransparent"} size={"sleek"}>
                           <PiArrowUpRightBold /> View
                         </Button>
-                      </Link>
+                      </Link> */}
                     </div>
                   </div>
 

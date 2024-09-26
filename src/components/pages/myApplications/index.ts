@@ -1,5 +1,7 @@
 import MyApplications from "./MyApplications";
+import ViewApplication from "./ViewApplication";
 
 export {
-    MyApplications
+    MyApplications,
+    ViewApplication
 }

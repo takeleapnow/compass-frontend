@@ -154,7 +154,7 @@ const Signup = () => {
             {errors.phoneNumber && (
               <p className="text-red-500 text-sm">{errors.phoneNumber}</p>
             )}
-            <OTPcomponent handleVerify={handleSubmit} />
+            <OTPcomponent handleVerify={handleSubmit} title={"Verify Whatsapp number"}/>
             <p className="text-xs w-[90%] text-center text-gray-600">
               By signing up you agree to our{" "}
               <Link to={""} className="hover:text-lightPrimary hover:underline">

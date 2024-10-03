@@ -35,11 +35,14 @@ const FormSchema = z.object({
 });
 const OTPcomponent = ({
   handleVerify,
+  title
 }: {
   handleVerify: (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
   ) => void;
-}) => {
+  title?: string;
+},
+) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -51,8 +54,8 @@ const OTPcomponent = ({
     <Dialog>
       <DialogTrigger>
         {" "}
-        <Button className="w-full mt-4">
-          <FaWhatsapp /> Verify Whatsapp number
+        <Button className="w-full mt-4 gap-2">
+          <FaWhatsapp  className="text-lg "/> {title}
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -80,14 +83,14 @@ const OTPcomponent = ({
                       </InputOTP>
                     </FormControl>
                     <FormDescription>
-                      Please enter the one-time password sent to your phone.
+                      Please enter the one-time password sent to your Whatsapp number.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              <Button onClick={handleVerify} className="px-8">Submit</Button>
+              <Button onClick={handleVerify} className="px-8">Verify OTP</Button>
             </div>
           </Form>
         </DialogHeader>

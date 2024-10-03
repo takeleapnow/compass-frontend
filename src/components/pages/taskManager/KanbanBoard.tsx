@@ -295,7 +295,7 @@ export function KanbanBoard({ tasks, setTasks, addTask }: KanbanBoardProps) {
     //     ]);
     // };
     return (
-        <div className="flex flex-col h-full justify-center items-center gap-y-4">
+        <div className="flex flex-col h-full justify-start items-start gap-y-4">
             {/* <div className="flex w-full justify-end items-center"> */}
             {/* <Button onClick={handleAddSection}> */}
             {/* <CirclePlusIcon className="mr-2 h-4 w-4" /> Add Section */}

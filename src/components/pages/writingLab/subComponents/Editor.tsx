@@ -14,11 +14,14 @@ const Editor = ({
 }: EditorProps) => {
   const editor = useRef<Jodit | null>(null); // Correct typing for useRef
   const [content, setContent] = useState<string>("");
+  const [isEditing, setIsEditing] = useState<boolean>(true); // Tracks if editor is in edit mode
+
   console.log(currWordCount);
 
   const config = useMemo(
     () => ({
       readonly: false,
+      // defaultMode: Jodit.constants.MODE_SPLIT,
       placeholder: placeholder || "Start typing...",
       toolbarSticky: true,
       buttons: [
@@ -103,14 +106,40 @@ const Editor = ({
     }
   };
 
+  const handleBlur = () => {
+    setIsEditing(false); // Switch to display mode on blur
+  };
+
+  const handleDoubleClick = () => {
+    setIsEditing(true); // Switch back to edit mode on double-click
+  };
+
+  const stripHtml = (html: string) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent || "";
+  };
   return (
-    <JoditEditor
-      ref={editor} // Ensures the ref is attached correctly
-      value={content}
-      config={config}
-      onBlur={(newContent) => handleContentChange(newContent)}
-      onChange={(newContent) => handleContentChange(newContent)}
-    />
+    <div>
+      {isEditing ?
+        <JoditEditor
+          ref={editor} // Ensures the ref is attached correctly
+          value={content}
+          config={config}
+          onBlur={(newContent) => {
+            handleContentChange(newContent);
+            handleBlur();
+          }}
+          onChange={(newContent) => handleContentChange(newContent)}
+
+        />
+        :
+        <div onDoubleClick={handleDoubleClick}>
+          <p>{stripHtml(content) || "Double-click to edit"}</p>
+        </div>
+      }
+
+    </div>
+
   );
 };
 

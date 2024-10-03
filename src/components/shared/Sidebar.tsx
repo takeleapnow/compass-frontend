@@ -30,22 +30,20 @@ const Sidebar = ({ data, isSideBarOpen, toggleSidebar }: SidebarProps) => {
                   <div key={index} className="w-full">
                     <Link to={item.link} className="w-full">
                       <div
-                        className={` w-full flex gap-2 justify-start items-center p-2 ${
-                          location.pathname === item.link
+                        className={` w-full flex gap-2 justify-start items-center p-2 ${location.pathname === item.link
                             ? "  border-purple-400 bg-gradient-to-tr dark:border-purple-800 dark:from-purple-800 dark:to-violet-800  bg-white  rounded-md dark:text-white text-purple-800 "
                             : " hover:bg-gradient-to-tr hover:to-purple-400   dark:hover:from-gray-800 dark:hover:to-gray-700 hover:from-purple-400 dark:hover:bg-gray-700 group rounded-lg dark:text-white text-white group-hover:text-white"
-                        }`}
+                          }`}
                       >
                         <item.icon className="text-2xl" />
                         <p className="text-lg font-normal flex justify-between w-full items-center ">
                           {item.title}
                           {item.status !== "" && (
                             <span
-                              className={`text-sm rounded-md font-semibold px-2 py-1  ${
-                                location.pathname === item.link
+                              className={`text-sm rounded-md font-semibold px-2 py-1  ${location.pathname === item.link
                                   ? "bg-secondary text-white"
                                   : "bg-white text-center text-secondary dark:bg-gray-800 dark:text-secondaryDark"
-                              }`}
+                                }`}
                             >
                               {item.status}
                             </span>
@@ -56,6 +54,7 @@ const Sidebar = ({ data, isSideBarOpen, toggleSidebar }: SidebarProps) => {
                   </div>
                 ))}
               </div>
+
             </div>
             <div className="mt-8 flex-col flex gap-2 ">
               <div className="flex gap-2">
@@ -80,11 +79,10 @@ const Sidebar = ({ data, isSideBarOpen, toggleSidebar }: SidebarProps) => {
               {data.map((item, index) => (
                 <Link to={item.link} key={index}>
                   <div
-                    className={`w-full flex gap-2 px-4 justify-start items-center p-2 ${
-                      location.pathname === item.link
+                    className={`w-full flex gap-2 px-4 justify-start items-center p-2 ${location.pathname === item.link
                         ? "  border-purple-400 bg-gradient-to-tr dark:border-purple-800 dark:from-purple-800 dark:to-violet-800  bg-white  rounded-md dark:text-white text-purple-800 "
                         : " hover:bg-gradient-to-tr hover:to-purple-400   dark:hover:from-gray-800 dark:hover:to-gray-700 hover:from-purple-400 dark:hover:bg-gray-700 group rounded-lg dark:text-white text-white group-hover:text-white"
-                    }`}
+                      }`}
                   >
                     <item.icon className="text-2xl" />
                   </div>

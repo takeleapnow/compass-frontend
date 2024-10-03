@@ -5,13 +5,15 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  // DropdownMenuPortal,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
-  // DropdownMenuSub,
-  // DropdownMenuSubContent,
-  // DropdownMenuSubTrigger,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { HiOutlineDocumentPlus, HiOutlineSparkles } from "react-icons/hi2";
+
 import { FiEdit, FiFileText } from "react-icons/fi";
 import { LuFileEdit } from "react-icons/lu";
 import { CiEdit } from "react-icons/ci";
@@ -56,12 +58,30 @@ const WritingLabCard = ({
                   <span>View all</span>
                 </DropdownMenuItem>
               </Link>
-              <Link to={"/writing-lab/editor"}>
-                <DropdownMenuItem>
-                  <LuFileEdit className="mr-2 h-4 w-4" />
-                  <span>Create new version</span>
-                </DropdownMenuItem>
-              </Link>
+              <div>
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger>
+                    <LuFileEdit className="mr-2 h-4 w-4" />
+                    <span>Create new version</span>
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent>
+                      <Link to={"/writing-lab/editor"}>
+                        <DropdownMenuItem>
+                          <HiOutlineDocumentPlus className="mr-2 h-4 w-4" />
+                          <span>Create manually</span>
+                        </DropdownMenuItem>
+                      </Link>
+                      <Link to={"/writing-lab/ai/prompt"}>
+                        <DropdownMenuItem>
+                          <HiOutlineSparkles className="mr-2 h-4 w-4" />
+                          <span>Create with AI</span>
+                        </DropdownMenuItem>
+                      </Link>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
+                </DropdownMenuSub>
+              </div>
               <DropdownMenuItem>
                 <CiEdit className="mr-2 h-4 w-4" />
                 <span>Edit details</span>

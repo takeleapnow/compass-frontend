@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { LuPhone } from "react-icons/lu";
 import { FiUser } from "react-icons/fi";
 import OTPcomponent from "./OTPcomponent";
+import { countryCodes } from "@/constants/coutryCode";
 
 interface UserProps {
   fullName: string;
@@ -31,7 +32,7 @@ const Signup = () => {
     },
   });
 
-  const [errors, setErrors] = useState<{ phoneNumber?: string }>({});
+  const [errors, setErrors] = useState<{ phoneNumber?: string, fullName?:string }>({});
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -75,6 +76,10 @@ const Signup = () => {
 
   const validateName = () => {
     if (userData.fullName === "") {
+      setErrors({
+        fullName: "Name cannot be empty",
+    
+      })
       return false;
     }
     return true;
@@ -110,10 +115,13 @@ const Signup = () => {
                 name="fullName"
                 value={userData.fullName}
                 onChange={handleInputChange}
-                placeholder="Enter your full name "
+                placeholder=" Your full name "
                 className="pl-8"
               />
             </div>
+            {errors.fullName && (
+              <p className="text-red-500 text-sm">{errors.fullName}</p>
+            )}
             <div className="flex gap-1 items-center">
               <Select
                 value={userData.phoneNumber.extension}
@@ -123,9 +131,11 @@ const Signup = () => {
                   <SelectValue placeholder="Ext" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="+91">+91</SelectItem>
-                  <SelectItem value="+1">+1</SelectItem>
-                  <SelectItem value="+44">+44</SelectItem>
+                {countryCodes.map((code) => (
+                  <SelectItem key={code.dial_code} value={code.dial_code}>
+                    {code.dial_code} {code.name}
+                  </SelectItem>
+                ))}
                   {/* Add more options as needed */}
                 </SelectContent>
               </Select>

@@ -5,10 +5,12 @@ import { useState } from "react";
 import Editor from "./subComponents/Editor";
 import EditorSidebar from "./EditorSidebar";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import TemplateEditor from "./subComponents/TemplateEditor";
 
 const EditorHome = () => {
   const [editorType, setEditorType] = useState<string>("plain"); // can have "plain" or "template" as values
-  const [currWordCount, setCurrWordCount] = useState<number>(0);
+  const [plainCurrWordCount, setPlainCurrWordCount] = useState<number>(0);
+  const [templateCurrWordCount, setTemplateCurrWordCount] = useState<number>(0);
   return (
     <Dashboard>
       <div>
@@ -27,17 +29,26 @@ const EditorHome = () => {
                 "An essay is a piece of writing that can be used to inform or convince the reader about a specific topic. It can also be used to present a logical and intellectual discussion of a topic. Some types of essays include:  Expository essays: These essays explain or investigate a specific subject.  Descriptive essays: These essays provide a detailed description of a person, place, event, emotion, situation, or object.  Persuasive essays: These essays aim to get the reader to agree with the writer or change their minds.  Argumentative essays: These essays help the reader understand different viewpoints on a topic.  Narrative essays: These essays tell a story from the first-person point of view.  Compare and contrast essays: These essays compare and contrast two subjects to highlight their key differences and similarities.  Analytical essays: These essays analyze an event, occurrence, or literary form.  Admissions essays: These essays present an argument about the applicant's suitability for graduate study. "
               }
               wordLimit={500}
-              currWordCount={currWordCount}
+              currWordCount={editorType == "plain" ? plainCurrWordCount : templateCurrWordCount}
               editorType={editorType}
               setEditorType={setEditorType}
             />
             <div className="mt-4">
               <ScrollArea className="h-[80vh]">
-                <Editor
-                  placeholder="Start typing..."
-                  currWordCount={currWordCount}
-                  setCurrWordCount={setCurrWordCount}
-                />
+                {editorType == "plain" ?
+                  <Editor
+                    placeholder="Start typing..."
+                    currWordCount={plainCurrWordCount}
+                    setCurrWordCount={setPlainCurrWordCount}
+                  />
+                  :
+                  <TemplateEditor
+                    placeholder="Start using template..."
+                    currWordCount={templateCurrWordCount}
+                    setCurrWordCount={setTemplateCurrWordCount}
+                  />
+                }
+
               </ScrollArea>
             </div>
           </div>

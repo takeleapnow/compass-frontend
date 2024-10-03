@@ -1,5 +1,3 @@
-import { useState, useRef, useMemo, useEffect } from "react";
-import JoditEditor, { Jodit } from "jodit-react";
 import Editor from "./Editor";
 
 // editor props type
@@ -10,7 +8,6 @@ interface EditorProps {
 }
 
 const TemplateEditor = ({
-    placeholder,
     currWordCount,
     setCurrWordCount,
 }: EditorProps) => {

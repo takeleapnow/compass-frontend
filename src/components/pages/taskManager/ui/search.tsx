@@ -2,11 +2,12 @@
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
+import { IoIosSearch } from "react-icons/io";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { toast } from "@/components/ui/use-toast";
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Input } from "@/components/ui/input";
 
 const FormSchema = z.object({
     search: z.string().optional(), // Field for search
@@ -48,9 +49,9 @@ export function Search({ onSearch, reset }: { onSearch: (query: string) => void;
                     render={({ field }) => (
                         <FormItem className="flex flex-col">
                             <FormControl>
-                                <input
+                                <Input
                                     {...field}
-                                    className="border rounded px-2 py-1"
+                                    className="w-72"
                                     placeholder="Search tasks..."
                                 />
                             </FormControl>
@@ -58,7 +59,7 @@ export function Search({ onSearch, reset }: { onSearch: (query: string) => void;
                         </FormItem>
                     )}
                 />
-                <Button type="submit">Search</Button>
+                <Button type="submit">Search <IoIosSearch /></Button>
                 <Button type="button" onClick={handleReset}>Reset</Button>
             </form>
         </Form>

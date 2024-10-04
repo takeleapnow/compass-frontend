@@ -56,7 +56,7 @@ const WritingLabNav = () => {
   };
 
   return (
-    <div className="flex justify-end gap-4 h-[10%]">
+    <div className="flex justify-end gap-4 ">
       <Input className="w-1/4" placeholder="Search shortlist..." />
       {/* filter options */}
       <Popover>

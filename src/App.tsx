@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify'
 import { Resources } from './components/pages/resources'
 import { useEffect } from 'react'
 import { Support } from './components/pages/support'
+import WLAIPrompt from './components/pages/writingLab/subComponents/WLAIPrompt'
 function App() {
   useEffect(() => {
     if (localStorage.theme === "dark" ) {
@@ -39,6 +40,7 @@ function App() {
         <Route path="/writing-lab" element={<WritingLab/>} />
         <Route path='/writing-lab/editor' element={<EditorHome/>} />
         <Route path="/writing-lab/view/all" element={<WritingMaterialHome/>}/>
+        <Route path= "/writing-lab/ai/prompt" element={<WLAIPrompt/>} />
 
         <Route path="/task-manager" element={<TaskManger/>} />
 

@@ -11,7 +11,6 @@ import {
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { LuPhone } from "react-icons/lu";
-import { FiUser } from "react-icons/fi";
 import OTPcomponent from "./OTPcomponent";
 import { countryCodes } from "@/constants/coutryCode";
 
